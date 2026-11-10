@@ -13,8 +13,7 @@ VeloLinkAI is your local-business service offering. It builds websites from reus
 
 ```sh
 pnpm install
-pnpm test          # all unit tests
-pnpm typecheck
+pnpm check         # typecheck, all tests, and the web build (run before every push)
 pnpm --filter @velolink/web dev   # http://localhost:3000, previews at /preview/<template-id>
 ```
 
