@@ -6,6 +6,9 @@ export default function Home() {
   return (
     <main style={{ fontFamily: "system-ui, sans-serif", maxWidth: 720, margin: "40px auto", padding: "0 16px" }}>
       <h1>VeloLink Builder</h1>
+      <p>
+        <a href="/orders/new">New website order</a>
+      </p>
       <h2>Templates</h2>
       <ul>
         {TEMPLATES.map((t) => (
