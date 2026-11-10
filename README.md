@@ -5,7 +5,7 @@ VeloLinkAI is your local-business service offering. It builds websites from reus
 
 | Path | What it is |
 | --- | --- |
-| `packages/core` | Section schemas (Zod), themes, templates, and the renderer that turns site JSON into pages |
+| `packages/core` | Section schemas (Zod), themes, templates, the renderer that turns site JSON into pages, and AI generation (`src/generation`: intake facts in, validated site out) |
 | `apps/web` | Next.js app: builder UI, rep deal form, template previews |
 | `supabase/migrations` | Database schema with row level security |
 
