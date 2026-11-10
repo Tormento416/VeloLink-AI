@@ -9,6 +9,7 @@ img{max-width:100%;border-radius:var(--vl-radius)}
 .vl-hero h1{font-size:clamp(2rem,5vw,3.2rem);margin:0 0 12px}.vl-hero p{color:var(--vl-muted);font-size:1.15rem}
 .vl-services ul,.vl-reviews ul{list-style:none;padding:0;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 .vl-services li,.vl-reviews li{background:var(--vl-surface);padding:20px;border-radius:var(--vl-radius)}
+.vl-services--list ul{grid-template-columns:1fr}
 .vl-about--image-left{display:grid;gap:32px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 .vl-reviews blockquote{margin:8px 0}.vl-reviews cite{color:var(--vl-muted)}
 .vl-faq details{border-bottom:1px solid var(--vl-surface);padding:12px 0}.vl-faq summary{cursor:pointer;font-weight:600}

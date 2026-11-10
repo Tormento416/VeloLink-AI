@@ -4,8 +4,9 @@ import { THEMES } from "../src/theme";
 export const demoSite: Site = {
   business: { name: "Smith Plumbing", phone: "(512) 555-0142", email: "hello@smithplumbing.example", serviceArea: "Austin, TX" },
   theme: THEMES["clean-blue"]!,
-  templateId: "local-pro-single",
+  templateId: "clean-pro",
   templateVersion: 1,
+  package: "single_page",
   pages: [
     {
       slug: "",

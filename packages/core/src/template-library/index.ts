@@ -1,8 +1,9 @@
 import { Template } from "../templates";
-import { localProSingle } from "./local-pro-single";
+import { cleanPro } from "./clean-pro";
+import { warmClassic } from "./warm-classic";
 
-/** All launch templates, validated at load so a bad template fails fast. */
-export const TEMPLATES: readonly Template[] = [localProSingle].map((t) => Template.parse(t));
+/** Launch templates (visual styles), validated at load so a bad one fails fast. */
+export const TEMPLATES: readonly Template[] = [cleanPro, warmClassic].map((t) => Template.parse(t));
 
 export function getTemplate(id: string): Template | undefined {
   return TEMPLATES.find((t) => t.id === id);

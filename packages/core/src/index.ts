@@ -1,6 +1,8 @@
 export * from "./sections/schemas";
 export * from "./theme";
 export * from "./site";
+export * from "./packages";
+export * from "./edits";
 export * from "./templates";
 export { TEMPLATES, getTemplate } from "./template-library";
 export { SectionView, type AssetResolver } from "./render/sections";

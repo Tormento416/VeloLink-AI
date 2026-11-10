@@ -70,3 +70,12 @@ describe("Theme", () => {
     expect(css).toContain("--vl-radius:8px");
   });
 });
+
+describe("Site package rules", () => {
+  it("rejects a single-page site with two pages", () => {
+    const home = demoSite.pages[0]!;
+    const r = Site.safeParse({ ...demoSite, pages: [home, { ...home, slug: "about" }] });
+    expect(r.success).toBe(false);
+    expect(r.error?.issues[0]?.message).toBe("single_page sites need exactly 1 pages, got 2");
+  });
+});

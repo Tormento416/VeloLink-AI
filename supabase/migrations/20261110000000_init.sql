@@ -45,10 +45,10 @@ create table public.clients (
   created_at timestamptz not null default now()
 );
 
+-- A template is a visual style; it works with any package.
 create table public.templates (
   id text not null,
   version int not null check (version > 0),
-  package public.package not null,
   name text not null,
   definition jsonb not null,
   created_at timestamptz not null default now(),
@@ -66,6 +66,9 @@ create table public.sites (
   zendesk_ticket_id bigint unique,
   payment_status public.payment_status not null default 'unpaid', -- set by the Stripe webhook later
   stripe_checkout_session_id text unique,
+  stripe_invoice_id text unique,          -- attached to the Zendesk build ticket
+  maintenance_plan boolean not null default false,
+  maintenance_edits_per_month smallint not null default 0 check (maintenance_edits_per_month between 0 and 3),
   submitted_by uuid not null references auth.users (id), -- the rep who submitted the deal
   receptionist_voice text,
   custom_domain text unique,
@@ -106,6 +109,22 @@ create table public.jobs (
   created_at timestamptz not null default now()
 );
 
+-- Post-launch edit requests. Maintenance plan: 1-3 included edits a month
+-- (major changes billed). No plan: every edit is billed, from $50.
+create type public.edit_status as enum ('requested', 'quoted', 'in_progress', 'done', 'declined');
+create table public.edit_requests (
+  id uuid primary key default gen_random_uuid(),
+  site_id uuid not null references public.sites (id) on delete cascade,
+  description text not null,
+  is_major boolean not null default false,
+  included_in_plan boolean not null default false,
+  fee_cents int not null default 0 check (fee_cents >= 0),
+  status public.edit_status not null default 'requested',
+  zendesk_ticket_id bigint unique,
+  requested_at timestamptz not null default now(),
+  completed_at timestamptz
+);
+
 create table public.qa_results (
   id uuid primary key default gen_random_uuid(),
   site_version_id uuid not null references public.site_versions (id) on delete cascade,
@@ -123,6 +142,7 @@ create index on public.site_versions (site_id);
 create index on public.assets (site_id);
 create index on public.jobs (site_id);
 create index on public.qa_results (site_version_id);
+create index on public.edit_requests (site_id, requested_at);
 
 -- Row level security
 alter table public.organizations enable row level security;
@@ -134,6 +154,7 @@ alter table public.site_versions enable row level security;
 alter table public.assets enable row level security;
 alter table public.jobs enable row level security;
 alter table public.qa_results enable row level security;
+alter table public.edit_requests enable row level security;
 
 create policy "members read their org" on public.organizations
   for select to authenticated using (public.is_member(id));
@@ -165,4 +186,8 @@ create policy "org members read qa results" on public.qa_results
     select 1 from public.site_versions v join public.sites s on s.id = v.site_id
     where v.id = site_version_id and public.is_member(s.organization_id)
   ));
+create policy "org members manage edit requests" on public.edit_requests
+  for all to authenticated
+  using (exists (select 1 from public.sites s where s.id = site_id and public.is_member(s.organization_id)))
+  with check (exists (select 1 from public.sites s where s.id = site_id and public.is_member(s.organization_id)));
 -- Jobs and QA results are written by the server with the secret key, which bypasses RLS.

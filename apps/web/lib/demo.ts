@@ -1,7 +1,7 @@
-import { Site, THEMES, type Template } from "@velolink/core";
+import { planSite, Site, THEMES, type Package, type Template } from "@velolink/core";
 
 /** Sample content used to preview a template before any client data exists. */
-export function demoSiteFor(template: Template): Site {
+export function demoSiteFor(template: Template, pkg: Package): Site {
   const theme = THEMES[template.themeId];
   if (!theme) throw new Error(`Unknown theme ${template.themeId}`);
   return Site.parse({
@@ -9,10 +9,11 @@ export function demoSiteFor(template: Template): Site {
     theme,
     templateId: template.id,
     templateVersion: template.version,
-    pages: template.pages.map((p) => ({
+    package: pkg,
+    pages: planSite(template, pkg).map((p) => ({
       slug: p.slug,
       title: p.title,
-      sections: p.sections.map((s) => sampleSection(s.type)),
+      sections: p.sections.map((s) => ({ ...sampleSection(s.type), ...(s.variant ? { variant: s.variant } : {}) })),
     })),
   });
 }

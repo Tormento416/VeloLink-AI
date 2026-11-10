@@ -1,6 +1,6 @@
-import { TEMPLATES } from "@velolink/core";
+import { Package, TEMPLATES } from "@velolink/core";
 
-const PACKAGE_LABEL = { single_page: "Single page", five_page: "5 page", seven_plus_page: "7+ page" } as const;
+const PACKAGE_LABEL: Record<Package, string> = { single_page: "Single page", five_page: "5 page", seven_plus_page: "7+ page" };
 
 export default function Home() {
   return (
@@ -9,8 +9,16 @@ export default function Home() {
       <h2>Templates</h2>
       <ul>
         {TEMPLATES.map((t) => (
-          <li key={t.id}>
-            <a href={`/preview/${t.id}`}>{t.name}</a> · {PACKAGE_LABEL[t.package]} · v{t.version}
+          <li key={t.id} style={{ marginBottom: 12 }}>
+            <strong>{t.name}</strong> (v{t.version}): {t.description}
+            <br />
+            Preview:{" "}
+            {Package.options.map((pkg, i) => (
+              <span key={pkg}>
+                {i > 0 && " · "}
+                <a href={`/preview/${t.id}/${pkg}`}>{PACKAGE_LABEL[pkg]}</a>
+              </span>
+            ))}
           </li>
         ))}
       </ul>
