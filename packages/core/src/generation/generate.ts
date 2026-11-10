@@ -85,7 +85,7 @@ export async function generateSite(opts: GenerateOptions): Promise<GenerateResul
             }
             const props = intakeProps(planned.type, intake);
             if (!props) {
-              skipped.push({ page: page.slug, type: planned.type, reason: "No reviews supplied" });
+              skipped.push({ page: page.slug, type: planned.type, reason: `Nothing in intake for ${planned.type}` });
               return null;
             }
             log.push({ page: page.slug, type: planned.type, source: "intake", attempts: 0 });
@@ -154,6 +154,10 @@ function intakeProps(type: Section["type"], intake: Intake): Record<string, unkn
   switch (type) {
     case "reviews":
       return intake.reviews.length ? { heading: "What customers say", items: intake.reviews } : null;
+    case "highlights":
+      return intake.highlights.length ? { items: intake.highlights } : null;
+    case "community":
+      return intake.community.length ? { heading: "In the community", items: intake.community } : null;
     case "contact": {
       const b = intake.business;
       return {

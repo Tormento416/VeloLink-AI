@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AboutSection, CtaSection, FaqSection, HeroSection, ServicesSection, type SectionType } from "../sections/schemas";
+import { AboutSection, CtaSection, FaqSection, HeroSection, ServicesSection, StepsSection, type SectionType } from "../sections/schemas";
 
 /**
  * The parts of each section the AI writes. Picked from the section schemas so the
@@ -12,6 +12,7 @@ export const COPY_SCHEMAS = {
   about: AboutSection.shape.props.pick({ heading: true, body: true }),
   faq: FaqSection.shape.props,
   cta: CtaSection.shape.props.pick({ heading: true, ctaLabel: true }),
+  steps: StepsSection.shape.props,
 } satisfies Partial<Record<SectionType, z.ZodObject>>;
 
 export type CopySectionType = keyof typeof COPY_SCHEMAS;

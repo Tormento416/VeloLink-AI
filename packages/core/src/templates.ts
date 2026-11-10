@@ -19,6 +19,11 @@ export const Template = z
     variants: z.partialRecord(sectionType, z.string()).default({}),
     /** Tone and style guidance the AI follows for every section. */
     voice: z.string().min(1),
+    /**
+     * Extra sections this style adds to the home page, placed after the named
+     * section (or before the last one when it isn't there).
+     */
+    homeExtras: z.array(z.object({ type: sectionType, after: sectionType.optional() })).max(4).default([]),
   })
   .superRefine((t, ctx) => {
     for (const [type, variant] of Object.entries(t.variants)) {
@@ -36,12 +41,18 @@ export type PlannedPage = { slug: string; title: string; sections: PlannedSectio
 
 /** Combines a package's pages with a template's style into the pages to generate. */
 export function planSite(template: Template, pkg: Package): PlannedPage[] {
-  return PACKAGE_PAGES[pkg].map((page) => ({
-    slug: page.slug,
-    title: page.title,
-    sections: page.sections.map((type) => {
-      const variant = template.variants[type];
-      return variant === undefined ? { type } : { type, variant };
-    }),
-  }));
+  const plan = (type: SectionType): PlannedSection => {
+    const variant = template.variants[type];
+    return variant === undefined ? { type } : { type, variant };
+  };
+  return PACKAGE_PAGES[pkg].map((page) => {
+    const types = [...page.sections];
+    if (page.slug === "") {
+      for (const extra of template.homeExtras) {
+        const at = extra.after ? types.indexOf(extra.after) : -1;
+        types.splice(at >= 0 ? at + 1 : Math.max(types.length - 1, 0), 0, extra.type);
+      }
+    }
+    return { slug: page.slug, title: page.title, sections: types.map(plan) };
+  });
 }

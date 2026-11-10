@@ -4,7 +4,7 @@ import { PACKAGE_PAGES, pageCountError, Package } from "../src/packages";
 import { TEMPLATES, getTemplate } from "../src/template-library";
 import { THEMES } from "../src/theme";
 
-const base = { id: "t", version: 1, name: "T", description: "d", themeId: "clean-blue", voice: "v" };
+const base = { id: "t", version: 1, name: "T", description: "d", themeId: "essential", voice: "v" };
 
 describe("Template schema", () => {
   it("accepts a valid style", () => {
@@ -47,10 +47,11 @@ describe("planSite", () => {
   });
 
   it("applies the template's variants and leaves others to defaults", () => {
-    const plan = planSite(getTemplate("warm-classic")!, "single_page");
+    const plan = planSite(getTemplate("signature")!, "single_page");
     expect(plan[0]!.sections).toEqual([
-      { type: "hero", variant: "centered" },
-      { type: "services", variant: "list" },
+      { type: "hero", variant: "full-bleed" },
+      { type: "highlights" },
+      { type: "services", variant: "grid" },
       { type: "about", variant: "image-left" },
       { type: "reviews" },
       { type: "faq" },
@@ -66,7 +67,7 @@ describe("Template library", () => {
   });
 
   it("looks up a template by id", () => {
-    expect(getTemplate("clean-pro")?.name).toBe("Clean Pro");
+    expect(getTemplate("essential")?.name).toBe("Essential");
     expect(getTemplate("nope")).toBeUndefined();
   });
 });

@@ -1,7 +1,9 @@
 import { z } from "zod";
-import { Section } from "./sections/schemas";
+import { SafeHref, Section } from "./sections/schemas";
 import { Theme } from "./theme";
 import { Package, pageCountError } from "./packages";
+
+export const SOCIAL_NETWORKS = ["facebook", "instagram", "tiktok", "x", "youtube", "linkedin", "nextdoor", "google"] as const;
 
 export const Business = z.object({
   name: z.string().trim().min(1).max(120),
@@ -9,6 +11,11 @@ export const Business = z.object({
   email: z.email().optional(),
   address: z.string().max(200).optional(),
   serviceArea: z.string().max(200).optional(),
+  /** Social profiles, shown in the footer. */
+  social: z
+    .array(z.object({ network: z.enum(SOCIAL_NETWORKS), href: SafeHref.refine((h) => h.startsWith("https://"), "Social links must be https") }))
+    .max(8)
+    .default([]),
 });
 export type Business = z.infer<typeof Business>;
 

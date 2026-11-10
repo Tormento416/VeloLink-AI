@@ -110,6 +110,49 @@ function Cta({ section }: Props<"cta">) {
   );
 }
 
+function Highlights({ section }: Props<"highlights">) {
+  return (
+    <section className="vl-highlights">
+      <ul>
+        {section.props.items.map((h, i) => <li key={i}>{h}</li>)}
+      </ul>
+    </section>
+  );
+}
+
+function Steps({ section }: Props<"steps">) {
+  return (
+    <section className="vl-steps">
+      <h2>{section.props.heading}</h2>
+      <ol>
+        {section.props.items.map((s, i) => (
+          <li key={i}>
+            <h3>{s.title}</h3>
+            <p>{s.description}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+function Community({ section }: Props<"community">) {
+  return (
+    <section className="vl-community">
+      <h2>{section.props.heading}</h2>
+      <ul>
+        {section.props.items.map((c, i) => (
+          <li key={i}>
+            {c.date && <p className="vl-community__date">{c.date}</p>}
+            <h3>{c.href ? <a href={c.href}>{c.title}</a> : c.title}</h3>
+            <p>{c.summary}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 export function SectionView({ section, asset }: { section: Section; asset: AssetResolver }): ReactElement {
   switch (section.type) {
     case "hero": return <Hero section={section} asset={asset} />;
@@ -119,5 +162,8 @@ export function SectionView({ section, asset }: { section: Section; asset: Asset
     case "faq": return <Faq section={section} asset={asset} />;
     case "contact": return <Contact section={section} asset={asset} />;
     case "cta": return <Cta section={section} asset={asset} />;
+    case "highlights": return <Highlights section={section} asset={asset} />;
+    case "steps": return <Steps section={section} asset={asset} />;
+    case "community": return <Community section={section} asset={asset} />;
   }
 }

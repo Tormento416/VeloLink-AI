@@ -2,9 +2,9 @@ import type { Site } from "../src/site";
 import { THEMES } from "../src/theme";
 
 export const demoSite: Site = {
-  business: { name: "Smith Plumbing", phone: "(512) 555-0142", email: "hello@smithplumbing.example", serviceArea: "Austin, TX" },
-  theme: THEMES["clean-blue"]!,
-  templateId: "clean-pro",
+  business: { name: "Smith Plumbing", phone: "(512) 555-0142", email: "hello@smithplumbing.example", serviceArea: "Austin, TX", social: [] },
+  theme: THEMES["essential"]!,
+  templateId: "essential",
   templateVersion: 1,
   package: "single_page",
   pages: [

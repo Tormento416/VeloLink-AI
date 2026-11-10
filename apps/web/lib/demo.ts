@@ -5,7 +5,7 @@ export function demoSiteFor(template: Template, pkg: Package): Site {
   const theme = THEMES[template.themeId];
   if (!theme) throw new Error(`Unknown theme ${template.themeId}`);
   return Site.parse({
-    business: { name: "Smith Plumbing", phone: "(512) 555-0142", serviceArea: "Austin, TX" },
+    business: { name: "Smith Plumbing", phone: "(512) 555-0142", serviceArea: "Austin, TX", social: [{ network: "facebook", href: "https://facebook.com/" }, { network: "instagram", href: "https://instagram.com/" }] },
     theme,
     templateId: template.id,
     templateVersion: template.version,
@@ -32,6 +32,12 @@ function sampleSection(type: string) {
       return { type, props: { heading: "Questions", items: [{ question: "Do you offer emergency service?", answer: "Yes, 24/7 across Austin." }] } };
     case "contact":
       return { type, props: { heading: "Get in touch", phone: "(512) 555-0142", hours: [{ days: "Mon–Fri", time: "7am–6pm" }] } };
+    case "highlights":
+      return { type, props: { items: ["Licensed and insured", "Same-day service", "Family owned since 2009"] } };
+    case "steps":
+      return { type, props: { heading: "How it works", items: [{ title: "Call or book", description: "Tell us what's going on." }, { title: "We come to you", description: "A plumber arrives on time with the right parts." }, { title: "Fixed right", description: "We clean up and check the work with you." }] } };
+    case "community":
+      return { type, props: { heading: "In the community", items: [{ title: "Little league sponsor", summary: "Proud sponsor of the Eastside Tigers since 2019.", date: "Spring 2026" }, { title: "Winter pipe clinic", summary: "Free tips on keeping pipes from freezing.", date: "Dec 2026" }] } };
     default:
       return { type: "cta", props: { heading: "Ready to book?", ctaLabel: "Call now", ctaHref: "tel:+15125550142" } };
   }

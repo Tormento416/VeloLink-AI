@@ -24,7 +24,7 @@ const intake = Intake.parse({
   hours: [{ days: "Mon–Fri", time: "7am–6pm" }],
   faqs: [{ question: "Do you offer emergency service?", answer: "Yes, 24/7." }],
 });
-const template = getTemplate("clean-pro")!;
+const template = getTemplate("essential")!;
 
 /** Records every request and answers with the fake writer. */
 class Recorder implements SectionWriter {
@@ -40,7 +40,7 @@ describe("generateSite", () => {
   it.each(Package.options)("builds a valid %s site", async (pkg) => {
     const { site } = await generateSite({ template, pkg, intake, writer: new TemplateCopyWriter(intake) });
     expect(site.package).toBe(pkg);
-    expect(site.templateId).toBe("clean-pro");
+    expect(site.templateId).toBe("essential");
     expect(site.pages[0]!.sections[0]!.type).toBe("hero");
   });
 
@@ -70,9 +70,9 @@ describe("generateSite", () => {
   });
 
   it("applies the template's variants", async () => {
-    const warm = getTemplate("warm-classic")!;
+    const warm = getTemplate("signature")!;
     const { site } = await generateSite({ template: warm, pkg: "single_page", intake, writer: new TemplateCopyWriter(intake) });
-    expect(site.pages[0]!.sections.find((s) => s.type === "hero")?.variant).toBe("centered");
+    expect(site.pages[0]!.sections.find((s) => s.type === "hero")?.variant).toBe("full-bleed");
   });
 
   it("fills the button link from intake, not from the AI", async () => {
@@ -174,5 +174,31 @@ describe("primaryHref", () => {
     expect(primaryHref({ ...intake, primaryAction: "quote" }, "five_page")).toBe("/contact");
     expect(primaryHref({ ...intake, primaryAction: "book", bookingUrl: "https://cal.example/smith" }, "five_page")).toBe("https://cal.example/smith");
     expect(primaryHref({ ...intake, primaryAction: "book" }, "five_page")).toBe("tel:5125550142");
+  });
+});
+
+describe("style extras", () => {
+  it("fills highlights and community from intake and writes steps with the AI", async () => {
+    const withCommunity = Intake.parse({ ...intake, community: [{ title: "Food drive", summary: "We collected 2,000 cans." }] });
+    const writer = new Recorder();
+    const flow = await generateSite({ template: getTemplate("flow")!, pkg: "five_page", intake: withCommunity, writer });
+    const home = flow.site.pages[0]!.sections.map((s) => s.type);
+    expect(home).toContain("steps");
+    expect(home).toContain("highlights");
+    expect(writer.requests.map((r) => r.sectionType)).toContain("steps");
+    expect(writer.requests.map((r) => r.sectionType)).not.toContain("highlights");
+
+    const hometown = await generateSite({ template: getTemplate("hometown")!, pkg: "five_page", intake: withCommunity, writer: new TemplateCopyWriter(withCommunity) });
+    const community = hometown.site.pages[0]!.sections.find((s) => s.type === "community");
+    expect(community?.props).toMatchObject({ items: [{ title: "Food drive" }] });
+  });
+
+  it("skips community and highlights when intake has none", async () => {
+    const bare = Intake.parse({ ...intake, highlights: [], community: [] });
+    const { site, skipped } = await generateSite({ template: getTemplate("hometown")!, pkg: "five_page", intake: bare, writer: new TemplateCopyWriter(bare) });
+    const types = site.pages[0]!.sections.map((s) => s.type);
+    expect(types).not.toContain("community");
+    expect(types).not.toContain("highlights");
+    expect(skipped.map((s) => s.type)).toEqual(expect.arrayContaining(["community", "highlights"]));
   });
 });

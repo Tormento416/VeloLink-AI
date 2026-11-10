@@ -19,7 +19,7 @@ describe("renderPageHtml", () => {
   });
 
   it("applies the theme variables", () => {
-    expect(html).toContain("--vl-primary:#1d4ed8");
+    expect(html).toContain("--vl-primary:#c2492f");
   });
 
   it("hides the nav on a single-page site", () => {

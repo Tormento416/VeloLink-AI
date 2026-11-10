@@ -22,6 +22,11 @@ export const Intake = z.object({
     .array(z.object({ author: line(60), quote: line(400), rating: z.number().int().min(1).max(5) }))
     .max(9)
     .default([]),
+  /** Local involvement and news: sponsorships, events, updates. Shown as written. */
+  community: z
+    .array(z.object({ title: line(90), summary: line(300), date: line(40).optional(), href: SafeHref.optional() }))
+    .max(6)
+    .default([]),
   hours: z.array(z.object({ days: line(40), time: line(40) })).max(7).default([]),
   /** Questions customers ask, with the client's answer when they gave one. */
   faqs: z.array(z.object({ question: line(160), answer: line(800).optional() })).max(15).default([]),

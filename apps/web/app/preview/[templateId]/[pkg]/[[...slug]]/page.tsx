@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { BASE_CSS, getTemplate, Package, pageHref, SitePage, themeToCss } from "@velolink/core";
+import { BASE_CSS, getTemplate, Package, pageHref, SitePage, themeFontsHref, themeToCss } from "@velolink/core";
 import { demoSiteFor } from "../../../../../lib/demo";
 
 type Params = Promise<{ templateId: string; pkg: string; slug?: string[] }>;
@@ -15,8 +15,11 @@ export default async function PreviewPage({ params }: { params: Params }) {
   const page = site.pages.find((p) => p.slug === (slug?.join("/") ?? ""));
   if (!page) notFound();
   const base = `/preview/${template.id}/${parsedPkg.data}`;
+  const fonts = themeFontsHref(site.theme);
   return (
     <>
+      {/* React 19 hoists these into <head>. */}
+      {fonts && <link rel="stylesheet" href={fonts} precedence="default" />}
       <style>{`:root{${themeToCss(site.theme)}}${BASE_CSS}`}</style>
       <SitePage
         site={site}

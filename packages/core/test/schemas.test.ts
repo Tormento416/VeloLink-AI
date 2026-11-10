@@ -6,7 +6,7 @@ import { demoSite } from "./fixtures";
 
 describe("Section schema", () => {
   it("lists every section type", () => {
-    expect(SECTION_TYPES).toEqual(["hero", "services", "about", "reviews", "faq", "contact", "cta"]);
+    expect(SECTION_TYPES).toEqual(["hero", "services", "about", "reviews", "faq", "contact", "cta", "highlights", "steps", "community"]);
   });
 
   it("fills in the default variant", () => {
@@ -60,14 +60,14 @@ describe("Theme", () => {
   });
 
   it("rejects a font stack that could break out of the style tag", () => {
-    const bad = { ...THEMES["clean-blue"]!, fonts: { heading: "x}</style><script>", body: "Arial" } };
+    const bad = { ...THEMES["essential"]!, fonts: { heading: "x}</style><script>", body: "Arial" } };
     expect(Theme.safeParse(bad).success).toBe(false);
   });
 
   it("emits CSS variables", () => {
-    const css = themeToCss(THEMES["clean-blue"]!);
-    expect(css).toContain("--vl-primary:#1d4ed8");
-    expect(css).toContain("--vl-radius:8px");
+    const css = themeToCss(THEMES["essential"]!);
+    expect(css).toContain("--vl-primary:#c2492f");
+    expect(css).toContain("--vl-radius:0px");
   });
 });
 

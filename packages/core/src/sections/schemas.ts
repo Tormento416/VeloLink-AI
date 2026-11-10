@@ -92,6 +92,38 @@ export const CtaSection = z.object({
   }),
 });
 
+/** Short trust facts, e.g. "Licensed and insured". Taken from intake, never written by the AI. */
+export const HighlightsSection = z.object({
+  type: z.literal("highlights"),
+  variant: z.enum(["badges"]).default("badges"),
+  props: z.object({
+    items: z.array(text(160)).min(1).max(8),
+  }),
+});
+
+/** How working with the business goes, step by step. */
+export const StepsSection = z.object({
+  type: z.literal("steps"),
+  variant: z.enum(["numbered"]).default("numbered"),
+  props: z.object({
+    heading: text(80),
+    items: z.array(z.object({ title: text(60), description: text(240) })).min(2).max(5),
+  }),
+});
+
+/** Local involvement and news the client supplied: sponsorships, events, updates. */
+export const CommunitySection = z.object({
+  type: z.literal("community"),
+  variant: z.enum(["cards"]).default("cards"),
+  props: z.object({
+    heading: text(80),
+    items: z
+      .array(z.object({ title: text(90), summary: text(300), date: text(40).optional(), href: SafeHref.optional() }))
+      .min(1)
+      .max(6),
+  }),
+});
+
 export const Section = z.discriminatedUnion("type", [
   HeroSection,
   ServicesSection,
@@ -100,6 +132,9 @@ export const Section = z.discriminatedUnion("type", [
   FaqSection,
   ContactSection,
   CtaSection,
+  HighlightsSection,
+  StepsSection,
+  CommunitySection,
 ]);
 
 export type Section = z.infer<typeof Section>;

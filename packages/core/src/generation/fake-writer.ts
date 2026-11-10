@@ -24,6 +24,15 @@ export class TemplateCopyWriter implements SectionWriter {
           heading: "Questions",
           items: (faqs.filter((f) => f.answer).length ? faqs.filter((f) => f.answer) : [{ question: "How do I get started?", answer: `Contact ${business.name} at ${business.phone}.` }]).map((f) => ({ question: f.question, answer: f.answer! })),
         };
+      case "steps":
+        return {
+          heading: "How it works",
+          items: [
+            { title: "Get in touch", description: `Call ${business.phone} or send a message.` },
+            { title: "We plan it", description: "We agree on what you need and when." },
+            { title: "Job done", description: "We do the work and make sure you're happy." },
+          ],
+        };
       case "cta":
         return { heading: "Ready when you are", ctaLabel: label };
     }

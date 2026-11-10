@@ -15,9 +15,9 @@ describe("demoSiteFor", () => {
   });
 
   it("applies the template's section variants", () => {
-    const warm = TEMPLATES.find((t) => t.id === "warm-classic")!;
+    const warm = TEMPLATES.find((t) => t.id === "signature")!;
     const hero = demoSiteFor(warm, "five_page").pages[0]!.sections[0]!;
-    expect(hero).toMatchObject({ type: "hero", variant: "centered" });
+    expect(hero).toMatchObject({ type: "hero", variant: "full-bleed" });
   });
 
   it("throws for an unknown theme", () => {
