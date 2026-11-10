@@ -14,11 +14,11 @@ export class TemplateCopyWriter implements SectionWriter {
     const label = primaryAction === "book" ? "Book online" : primaryAction === "quote" ? "Get a quote" : "Call now";
     switch (sectionType) {
       case "hero":
-        return { headline: clip(`${business.name}${where}`, 90), subheadline: clip(services.join(", "), 220), ctaLabel: label };
+        return { eyebrow: clip(`Serving${where || " you"}`, 60), headline: clip(`${business.name}${where}`, 90), subheadline: clip(services.join(", "), 220), ctaLabel: label };
       case "services":
-        return { heading: "Services", items: services.map((name) => ({ name: clip(name, 60), description: clip(`${name}${where}.`, 240) })) };
+        return { heading: "Services", intro: clip(`What ${business.name} can do for you.`, 240), items: services.map((name) => ({ name: clip(name, 60), description: clip(`${name}${where}.`, 240), icon: "check" })) };
       case "about":
-        return { heading: `About ${clip(business.name, 70)}`, body: clip([story, ...highlights].filter(Boolean).join("\n\n") || `${business.name} serves customers${where}.`, 1500) };
+        return { points: highlights.slice(0, 4).map((h) => clip(h, 80)), heading: `About ${clip(business.name, 70)}`, body: clip([story, ...highlights].filter(Boolean).join("\n\n") || `${business.name} serves customers${where}.`, 1500) };
       case "faq":
         return {
           heading: "Questions",
@@ -34,7 +34,7 @@ export class TemplateCopyWriter implements SectionWriter {
           ],
         };
       case "cta":
-        return { heading: "Ready when you are", ctaLabel: label };
+        return { heading: "Ready when you are", subheading: `Reach ${clip(business.name, 120)} today.`, ctaLabel: label };
     }
   }
 }

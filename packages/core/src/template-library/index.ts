@@ -14,6 +14,7 @@ const LIBRARY: TemplateInput[] = [
     themeId: "essential",
     variants: { hero: "centered", services: "list", about: "text", contact: "details" },
     voice: "Calm and plain-spoken. Short sentences, no hype. Say what the business does and how to start.",
+    homeExtras: [{ type: "areas", after: "faq" }],
   },
   {
     id: "momentum",
@@ -23,7 +24,10 @@ const LIBRARY: TemplateInput[] = [
     themeId: "momentum",
     variants: { hero: "split", services: "grid", about: "image-left", contact: "details" },
     voice: "Confident and energetic. Active verbs, punchy headlines, lead with speed and results.",
-    homeExtras: [{ type: "highlights", after: "hero" }],
+    homeExtras: [
+      { type: "highlights", after: "hero" },
+      { type: "gallery", after: "services" },
+    ],
   },
   {
     id: "flow",
@@ -46,7 +50,10 @@ const LIBRARY: TemplateInput[] = [
     themeId: "signature",
     variants: { hero: "full-bleed", services: "grid", about: "image-left", contact: "details-map" },
     voice: "Polished and understated. Elegant word choices, never flowery. Emphasise care, quality and attention to detail.",
-    homeExtras: [{ type: "highlights", after: "hero" }],
+    homeExtras: [
+      { type: "highlights", after: "hero" },
+      { type: "gallery", after: "reviews" },
+    ],
   },
   {
     id: "hometown",
@@ -59,6 +66,7 @@ const LIBRARY: TemplateInput[] = [
     homeExtras: [
       { type: "highlights", after: "hero" },
       { type: "community", after: "services" },
+      { type: "areas" },
     ],
   },
 ];

@@ -81,7 +81,7 @@ export async function generateSite(opts: GenerateOptions): Promise<GenerateResul
           try {
             if (isCopySection(planned.type)) {
               const props = await writeCopy(planned.type, page.slug, page.title);
-              return withVariant(planned, props);
+              return withVariant(planned, enrich(planned.type, props, intake, pkg));
             }
             const props = intakeProps(planned.type, intake);
             if (!props) {
@@ -149,6 +149,26 @@ function withVariant(planned: PlannedSection, props: Record<string, unknown>): S
   return Section.parse({ type: planned.type, ...(planned.variant ? { variant: planned.variant } : {}), props });
 }
 
+/** Adds facts the AI doesn't write: photos and the secondary hero link. */
+function enrich(type: CopySectionType, props: Record<string, unknown>, intake: Intake, pkg: Package): Record<string, unknown> {
+  const { photos } = intake;
+  switch (type) {
+    case "hero":
+      return {
+        ...props,
+        secondaryCtaLabel: "Our services",
+        secondaryCtaHref: pkg === "single_page" ? "#services" : "/services",
+        ...(photos.hero ? { image: photos.hero } : {}),
+      };
+    case "about":
+      return photos.about ? { ...props, image: photos.about } : props;
+    case "cta":
+      return photos.cta ? { ...props, image: photos.cta } : props;
+    default:
+      return props;
+  }
+}
+
 /** Sections built straight from intake facts. Returns null when there is nothing to show. */
 function intakeProps(type: Section["type"], intake: Intake): Record<string, unknown> | null {
   switch (type) {
@@ -156,6 +176,12 @@ function intakeProps(type: Section["type"], intake: Intake): Record<string, unkn
       return intake.reviews.length ? { heading: "What customers say", items: intake.reviews } : null;
     case "highlights":
       return intake.highlights.length ? { items: intake.highlights } : null;
+    case "gallery":
+      return intake.photos.gallery.length ? { heading: "Our work", images: intake.photos.gallery } : null;
+    case "areas": {
+      const areas = intake.business.serviceAreas;
+      return areas.length ? { heading: "Areas we serve", areas } : null;
+    }
     case "community":
       return intake.community.length ? { heading: "In the community", items: intake.community } : null;
     case "contact": {
@@ -165,7 +191,8 @@ function intakeProps(type: Section["type"], intake: Intake): Record<string, unkn
         phone: b.phone,
         ...(b.email ? { email: b.email } : {}),
         ...(b.address ? { address: b.address } : {}),
-        hours: intake.hours,
+        hours: b.hours,
+        ...(b.serviceArea ? { serviceArea: b.serviceArea } : {}),
       };
     }
     default:

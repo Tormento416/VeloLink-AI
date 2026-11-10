@@ -15,13 +15,12 @@ import { getTemplate } from "../src/template-library";
 import { Package } from "../src/packages";
 
 const intake = Intake.parse({
-  business: { name: "Smith Plumbing", phone: "(512) 555-0142", serviceArea: "Austin, TX" },
+  business: { name: "Smith Plumbing", phone: "(512) 555-0142", serviceArea: "Austin, TX", hours: [{ days: "Mon–Fri", time: "7am–6pm" }] },
   industry: "residential plumbing",
   services: ["Leak repair", "Water heaters", "Drain cleaning"],
   story: "Family owned since 2009.",
   highlights: ["Licensed and insured"],
   reviews: [{ author: "Dana R.", quote: "On time and fairly priced.", rating: 5 }],
-  hours: [{ days: "Mon–Fri", time: "7am–6pm" }],
   faqs: [{ question: "Do you offer emergency service?", answer: "Yes, 24/7." }],
 });
 const template = getTemplate("essential")!;
@@ -200,5 +199,28 @@ describe("style extras", () => {
     expect(types).not.toContain("community");
     expect(types).not.toContain("highlights");
     expect(skipped.map((s) => s.type)).toEqual(expect.arrayContaining(["community", "highlights"]));
+  });
+});
+
+describe("photos and local facts", () => {
+  it("adds intake photos and the secondary hero link", async () => {
+    const photos = Intake.parse({
+      ...intake,
+      photos: { hero: { assetId: "h1", alt: "Van" }, about: { assetId: "a1", alt: "Team" }, gallery: [{ assetId: "g1", alt: "Job" }] },
+    });
+    const { site } = await generateSite({ template: getTemplate("signature")!, pkg: "single_page", intake: photos, writer: new TemplateCopyWriter(photos) });
+    const sections = site.pages[0]!.sections;
+    const hero = sections.find((s) => s.type === "hero");
+    expect(hero?.props).toMatchObject({ image: { assetId: "h1" }, secondaryCtaHref: "#services" });
+    expect(sections.find((s) => s.type === "about")?.props).toMatchObject({ image: { assetId: "a1" } });
+    expect(sections.find((s) => s.type === "gallery")?.props).toMatchObject({ images: [{ assetId: "g1" }] });
+  });
+
+  it("lists service areas from the business and skips them when there are none", async () => {
+    const withAreas = Intake.parse({ ...intake, business: { ...intake.business, serviceAreas: ["Round Rock", "Pflugerville"] } });
+    const a = await generateSite({ template: getTemplate("hometown")!, pkg: "single_page", intake: withAreas, writer: new TemplateCopyWriter(withAreas) });
+    expect(a.site.pages[0]!.sections.find((s) => s.type === "areas")?.props).toMatchObject({ areas: ["Round Rock", "Pflugerville"] });
+    const b = await generateSite({ template: getTemplate("hometown")!, pkg: "single_page", intake, writer: new TemplateCopyWriter(intake) });
+    expect(b.skipped.map((s) => s.type)).toContain("areas");
   });
 });

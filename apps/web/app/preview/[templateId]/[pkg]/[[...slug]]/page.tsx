@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { BASE_CSS, getTemplate, Package, pageHref, SitePage, themeFontsHref, themeToCss } from "@velolink/core";
-import { demoSiteFor } from "../../../../../lib/demo";
+import { demoAsset, demoSiteFor } from "../../../../../lib/demo";
 
 type Params = Promise<{ templateId: string; pkg: string; slug?: string[] }>;
 
@@ -24,7 +24,7 @@ export default async function PreviewPage({ params }: { params: Params }) {
       <SitePage
         site={site}
         page={page}
-        asset={(id) => `/assets/${encodeURIComponent(id)}`}
+        asset={demoAsset}
         href={(s) => `${base}${pageHref(s) === "/" ? "" : pageHref(s)}`}
       />
     </>

@@ -54,6 +54,7 @@ describe("planSite", () => {
       { type: "services", variant: "grid" },
       { type: "about", variant: "image-left" },
       { type: "reviews" },
+      { type: "gallery" },
       { type: "faq" },
       { type: "contact", variant: "details-map" },
     ]);

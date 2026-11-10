@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { SafeHref, Section } from "./sections/schemas";
+import { ImageRef, SafeHref, Section } from "./sections/schemas";
 import { Theme } from "./theme";
 import { Package, pageCountError } from "./packages";
 
@@ -10,7 +10,14 @@ export const Business = z.object({
   phone: z.string().trim().min(1).max(30),
   email: z.email().optional(),
   address: z.string().max(200).optional(),
+  /** Main area in a few words, e.g. "Austin, TX". */
   serviceArea: z.string().max(200).optional(),
+  /** Towns and neighbourhoods served, for the areas section and local search. */
+  serviceAreas: z.array(z.string().trim().min(1).max(60)).max(30).default([]),
+  /** One line about the business, shown in the footer. */
+  tagline: z.string().trim().min(1).max(160).optional(),
+  logo: ImageRef.optional(),
+  hours: z.array(z.object({ days: z.string().trim().min(1).max(40), time: z.string().trim().min(1).max(40) })).max(7).default([]),
   /** Social profiles, shown in the footer. */
   social: z
     .array(z.object({ network: z.enum(SOCIAL_NETWORKS), href: SafeHref.refine((h) => h.startsWith("https://"), "Social links must be https") }))

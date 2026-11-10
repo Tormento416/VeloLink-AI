@@ -6,7 +6,7 @@ import { demoSite } from "./fixtures";
 
 describe("Section schema", () => {
   it("lists every section type", () => {
-    expect(SECTION_TYPES).toEqual(["hero", "services", "about", "reviews", "faq", "contact", "cta", "highlights", "steps", "community"]);
+    expect(SECTION_TYPES).toEqual(["hero", "services", "about", "reviews", "faq", "contact", "cta", "highlights", "steps", "community", "gallery", "areas"]);
   });
 
   it("fills in the default variant", () => {

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { Business } from "../site";
-import { SafeHref } from "../sections/schemas";
+import { ImageRef, SafeHref } from "../sections/schemas";
 
 const line = (max: number) => z.string().trim().min(1).max(max);
 
@@ -27,9 +27,17 @@ export const Intake = z.object({
     .array(z.object({ title: line(90), summary: line(300), date: line(40).optional(), href: SafeHref.optional() }))
     .max(6)
     .default([]),
-  hours: z.array(z.object({ days: line(40), time: line(40) })).max(7).default([]),
   /** Questions customers ask, with the client's answer when they gave one. */
   faqs: z.array(z.object({ question: line(160), answer: line(800).optional() })).max(15).default([]),
+  /** Client-approved photos. Sections without a photo fall back to styled artwork. */
+  photos: z
+    .object({
+      hero: ImageRef.optional(),
+      about: ImageRef.optional(),
+      cta: ImageRef.optional(),
+      gallery: z.array(ImageRef).max(12).default([]),
+    })
+    .default({ gallery: [] }),
   /** What the main button does. */
   primaryAction: z.enum(["call", "book", "quote"]).default("call"),
   bookingUrl: SafeHref.optional(),

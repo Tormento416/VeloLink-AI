@@ -16,12 +16,12 @@ Rules:
 Reply with JSON that matches the given schema.`;
 
 const SECTION_TASKS: Record<CopySectionType, string> = {
-  hero: "Write the hero: a headline that says what the business does and where, an optional one-sentence subheadline, and a short button label for the main action.",
-  services: "Write the services section: a heading and one item per service in the brief, in the same order, each with a one or two sentence description of what the customer gets.",
-  about: "Write the about section: a heading and two or three short paragraphs (separate them with a blank line) built from the story and highlights.",
-  faq: "Write the FAQ section: a heading and the questions from the brief. Keep the client's answers' meaning; tighten the wording. For a question without an answer, answer only from the brief's facts, and leave the question out if the brief can't answer it. If the brief has no questions, write three to five common questions this business can answer from the brief's facts.",
+  hero: "Write the hero: a short eyebrow line (a few words, e.g. who they serve and where), a headline that says what the business does and where, a one-sentence subheadline with the main benefit, and a short button label for the main action.",
+  services: "Write the services section: a heading, a one-sentence intro, and one item per service in the brief, in the same order, each with a one or two sentence description of what the customer gets and the icon that fits it best.",
+  about: "Write the about section: a short eyebrow, a heading, two or three short paragraphs (separate them with a blank line) built from the story and highlights, and three or four short checklist points taken from the brief's facts.",
+  faq: "Write the FAQ section: a heading, a one-sentence intro, and the questions from the brief. Keep the client's answers' meaning; tighten the wording. For a question without an answer, answer only from the brief's facts, and leave the question out if the brief can't answer it. If the brief has no questions, write three to five common questions this business can answer from the brief's facts.",
   steps: "Write a how-it-works section: a heading and three or four steps a customer goes through, from first contact to job done, each with a short title and one sentence. Use only what the brief says about how the business works; keep steps general when it says nothing.",
-  cta: "Write a call-to-action banner: a short heading that invites the visitor to act, and a button label for the main action.",
+  cta: "Write a call-to-action banner: a short heading that invites the visitor to act, a one-sentence subheading, and a button label for the main action.",
 };
 
 const ACTION_WORDS: Record<Intake["primaryAction"], string> = {

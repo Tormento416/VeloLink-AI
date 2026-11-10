@@ -22,8 +22,38 @@ describe("renderPageHtml", () => {
     expect(html).toContain("--vl-primary:#c2492f");
   });
 
-  it("hides the nav on a single-page site", () => {
-    expect(html).not.toContain('class="vl-nav"');
+  it("links to sections on a single-page site", () => {
+    expect(html).toContain('href="#services"');
+    expect(html).toContain('href="#contact"');
+    expect(html).not.toContain('href="#hero"');
+  });
+
+  it("puts a call button in the header", () => {
+    expect(html).toMatch(/class="vl-button vl-header__call" href="tel:5125550142"/);
+  });
+
+  it("shows the average rating and review count", () => {
+    const site = structuredClone(demoSite);
+    site.pages[0]!.sections.push({ type: "reviews", variant: "cards", props: { heading: "Reviews", items: [{ author: "Ann Lee", quote: "Great", rating: 5 }, { author: "Bo", quote: "Good", rating: 4 }] } });
+    const out = renderPageHtml(site, "", asset);
+    expect(out).toContain("<strong>4.5</strong>");
+    expect(out).toContain("2 reviews");
+    expect(out).toContain(">AL</span>");
+  });
+
+  it("embeds a map only for the map variant, with the address encoded", () => {
+    const site = structuredClone(demoSite);
+    const contact = site.pages[0]!.sections.find((s) => s.type === "contact")!;
+    if (contact.type !== "contact") throw new Error("fixture changed");
+    contact.props.address = "1 Main St & 2nd, Austin";
+    expect(renderPageHtml(site, "", asset)).not.toContain("<iframe");
+    contact.variant = "details-map";
+    expect(renderPageHtml(site, "", asset)).toContain("maps?q=1%20Main%20St%20%26%202nd%2C%20Austin&amp;output=embed");
+  });
+
+  it("uses artwork instead of a broken image when a hero has no photo", () => {
+    expect(html).toContain('class="vl-art "');
+    expect(html).not.toContain("<img");
   });
 
   it("escapes content instead of injecting HTML", () => {

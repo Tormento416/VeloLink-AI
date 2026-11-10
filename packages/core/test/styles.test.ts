@@ -78,7 +78,7 @@ describe("rendering the new pieces", () => {
   it("loads the theme's fonts and applies its classes", () => {
     const html = renderPageHtml(demoSite, "", asset);
     expect(html).toContain('href="https://fonts.googleapis.com/css2?family=Fraunces');
-    expect(html).toContain('class="vl-site vl-hero-bg--plain vl-cards--flat vl-motion--none"');
+    expect(html).toContain('class="vl-site vl-hero-bg--plain vl-cards--flat vl-motion--none vl-skin--essential"');
   });
 
   it("renders highlights, steps, community and social links", () => {
@@ -90,7 +90,7 @@ describe("rendering the new pieces", () => {
       { type: "community", variant: "cards", props: { heading: "In the community", items: [{ title: "Little league sponsor", summary: "Proud sponsor of the Tigers.", date: "Spring 2026" }] } },
     );
     const html = renderPageHtml(site, "", asset);
-    expect(html).toContain("<li>Licensed and insured</li>");
+    expect(html).toMatch(/<li><svg[^>]*>.*?<\/svg>Licensed and insured<\/li>/);
     expect(html).toContain("<h3>Fix</h3>");
     expect(html).toContain("Little league sponsor");
     expect(html).toContain('href="https://instagram.com/smith"');
