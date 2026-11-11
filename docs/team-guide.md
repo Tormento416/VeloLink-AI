@@ -1,6 +1,6 @@
 # VeloLinkAI Team Guide
 
-**Draft v0.8 | November 11, 2026 | Owner: Adrian Sousa**
+**Draft v0.9 | November 11, 2026 | Owner: Adrian Sousa**
 
 **Status: working draft for the November 12 team call. Not yet reviewed by an attorney or CPA. Nothing here is a signed agreement.**
 
@@ -33,14 +33,16 @@ Who we sell to: emergency trades (plumbers, electricians, HVAC, locksmiths), pro
 
 | Person | Role | Territory | Status |
 |---|---|---|---|
-| Adrian Sousa | Owner. Sells part of the time; also builds, pricing, contracts, billing, escalations | Greensboro to Charlotte | [DECIDED] |
-| Kristopher Sousa | Sales Representative (1099 to start) | Fayetteville to Raleigh | [DECIDED] |
-| Jermal Smith | Sales Representative (1099 to start) | Own local community; area [OPEN] | [DECIDED] |
-| Shannon Wells | Sales Representative (1099 to start) | Own local community; area [OPEN] | [DECIDED] |
+| Adrian Sousa | Owner. Sells part of the time; also builds, pricing, contracts, billing, escalations | Greensboro to Charlotte, NC | [DECIDED] |
+| Kristopher Sousa | Sales Representative (1099 to start) | Fayetteville to Raleigh, NC | [DECIDED] |
+| Jermal Smith | Sales Representative (1099 to start) | Parts of New Jersey; exact area to be confirmed | [DECIDED], area [OPEN] |
+| Shannon Wells | Sales Representative (1099 to start) | Port St. Lucie, Stuart and Fort Pierce, FL | [DECIDED] |
 
 Kristopher, Jermal and Shannon sell full time. Each representative works their own local community so that areas do not overlap [DECIDED]. Adrian is the only person who is not selling 100% of the time.
 
-[OPEN] The area each of Jermal and Shannon covers.
+[OPEN] The exact part of New Jersey Jermal covers.
+
+[COUNSEL] The team now works in three states. The legal review so far covered North Carolina only. New Jersey and Florida have their own rules on contractor status, call recording and telemarketing, and these need to be checked before selling or going live with a client there.
 
 ### 2.2 Who owns what
 
@@ -368,7 +370,7 @@ These are required, because they protect clients and the company.
 **Adrian to decide**
 
 1. Remaining price details: whether medical offices are a target, what maintenance covers, SEO setup on annual plans, veteran discount proof (sections 3.2 to 3.6).
-2. The area Jermal Smith and Shannon Wells each cover (section 2.1).
+2. The exact part of New Jersey Jermal Smith covers (section 2.1).
 3. When the first draw is paid after the first sale, and any time limit or cap (section 4.5).
 4. Definition of "net collected", what counts as a renewal, and whether residuals continue after a representative leaves (section 4.4).
 5. Commission when Adrian closes a representative's lead (section 4.3).
@@ -380,10 +382,10 @@ These are required, because they protect clients and the company.
 **Needs an attorney or CPA**
 
 1. Independent Sales Representative Agreement, including the draw, the 60-day reversal and the 90-day W-2 option.
-2. Whether the working arrangement supports 1099 status, given the draw and the conversion option.
+2. Whether the working arrangement supports 1099 status, given the draw and the conversion option, in each of the three states.
 3. Client service agreement and the client sign-off form.
 4. Confirmation that VeloLinkAI is its own legal entity, and insurance cover.
-5. Calling rules for representatives.
+5. Calling rules for representatives, in North Carolina, New Jersey and Florida.
 6. 1099-NEC threshold and filing.
 7. Wage, overtime and workers' compensation rules for converted employees.
 
