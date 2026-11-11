@@ -1,6 +1,6 @@
 # VeloLinkAI Team Guide
 
-**Draft v0.7 | November 11, 2026 | Owner: Adrian Sousa**
+**Draft v0.8 | November 11, 2026 | Owner: Adrian Sousa**
 
 **Status: working draft for the November 12 team call. Not yet reviewed by an attorney or CPA. Nothing here is a signed agreement.**
 
@@ -88,9 +88,11 @@ Prices below marked [DECIDED] were set by Adrian on November 11, 2026 and replac
 | Each extra page | $200 per page | One-time | [DECIDED] |
 | Web Presence Maintenance, sites of 1 to 3 pages | $89.99 per month | Monthly | [DECIDED] |
 | Web Presence Maintenance, larger sites | $149.99 per month | Monthly | [DECIDED] |
-| Domain services | Available for a fee | To be priced | [DECIDED] that it is offered; fee is [OPEN] |
+| Domain services | $45 per year, plus the cost of the domain | Yearly | [DECIDED] |
 
 Example: a 7-page website is $1,000 + (2 x $200) = $1,400.
+
+Domain example: if the domain costs $15 a year to register, the client pays $45 + $15 = $60 a year.
 
 ### 3.2 AI receptionist
 
@@ -176,7 +178,6 @@ No other discount is offered without Adrian's approval. The annual-prepay and ea
 Do not quote these to a client until Adrian confirms them:
 
 - **Web Presence Maintenance:** what the fee covers, and whether it is required with every website.
-- **Domain services fee.**
 - **Residual on maintenance.** Whether the 5% residual in section 4.4 applies to Web Presence Maintenance as well as the AI receptionist monthly fee.
 
 ---
@@ -366,7 +367,7 @@ These are required, because they protect clients and the company.
 
 **Adrian to decide**
 
-1. Remaining price details: whether medical offices are a target, what maintenance covers, domain fee, SEO setup on annual plans, veteran discount proof (sections 3.2 to 3.6).
+1. Remaining price details: whether medical offices are a target, what maintenance covers, SEO setup on annual plans, veteran discount proof (sections 3.2 to 3.6).
 2. The area Jermal Smith and Shannon Wells each cover (section 2.1).
 3. When the first draw is paid after the first sale, and any time limit or cap (section 4.5).
 4. Definition of "net collected", what counts as a renewal, and whether residuals continue after a representative leaves (section 4.4).
