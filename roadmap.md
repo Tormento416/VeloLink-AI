@@ -1,0 +1,23 @@
+- [x] Add the standalone one-page revamp starting at $500 and optional add-ons on Home and Packages.
+- [x] Distinguish standalone products from existing bundles in site copy.
+- [x] Verify pricing rules and the website/add-on browsing flow.
+- [x] Add a build-your-own bundle with selections carried into the contact page.
+- [x] Offer existing packages as alternatives without inventing savings or add-on prices.
+- [x] Test bundle selection rules and verify the custom-bundle browsing flow.
+- [x] Embed the Calendly scheduler on the Contact page so visitors can book a Modernization Audit.
+- [x] Add a Demos page with legal, trades, and creative/community categories.
+- [ ] Fill the demo categories with real builds and mark any published demo as live.
+- [x] Add allowlisted rep builder with persisted quote requests.
+- [x] Remove public configurator/submissions and require verified rep access for every sales action.
+- [x] Test authorization rules, verify marketing links and /start redirect to rep login, and document rep setup.
+- [ ] Verify signed-in rep end-to-end flow — secrets saved and sign-in redirect verified; blocked on registering the callback in the WorkOS dashboard and a real rep sign-in.
+- [x] Move rep access off public navigation and restrict it to internal.velolinkai.com.
+- [x] Replace rep sign-in with WorkOS and retain server-only rep authorization.
+- [x] Save customer profile, selected options, and site information to Cloud; test private workspace boundaries.
+- [ ] Save public contact inquiries privately and notify sales routing after confirmed provider setup.
+- [ ] Save booking requests for asousa@hyrlink.app review/rep assignment without claiming calendar placement.
+- [x] Connect internal.velolinkai.com (DNS verified) and verify rep-only access rules (55 tests; sign-in redirect confirmed) — user must unset velolinkai.com as primary domain so the internal address serves the workspace.
+- [x] Enable built-in Stripe payments (test environment live; no API key needed).
+- [ ] Create sellable products and prices — user chose to hold off and keep everything quote-only; needs firm prices first. Seller country confirmed United States.
+- [ ] GitHub sync: user wants repo Tormento416/VeloLink-AI — Git sync only creates new repos; user must connect via Project settings → Git or push the downloaded codebase to the existing repo themselves.
+

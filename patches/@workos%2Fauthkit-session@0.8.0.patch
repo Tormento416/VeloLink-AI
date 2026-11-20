@@ -1,0 +1,11 @@
+--- a/dist/core/client/workos.js
++++ b/dist/core/client/workos.js
+@@ -1,7 +1,7 @@
+ import { WorkOS } from '@workos-inc/node';
+ import { getConfig } from '../config.js';
+ import { once } from '../../utils.js';
+-import pkg from '../../../package.json' with { type: 'json' };
++const pkg = { name: '@workos/authkit-session', version: '0.8.0' };
+ /**
+  * Create a WorkOS instance from the AuthKit configuration.
+  *

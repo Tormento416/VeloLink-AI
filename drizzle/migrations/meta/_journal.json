@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1794175642572,
+      "tag": "0000_create_builder_quote_requests",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794175842834,
+      "tag": "0001_limit_public_builder_quote_submissions",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794176071370,
+      "tag": "0002_restrict_builder_orders_to_reps",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1794200836432,
+      "tag": "0003_add_workos_rep_identity_mapping",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794293790501,
+      "tag": "0004_add_contact_and_booking_intake",
+      "breakpoints": true
+    }
+  ]
+}
